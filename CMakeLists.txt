@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rqt_gui_cpp
   roscpp
   std_msgs
+  nav_msgs
   nodelet
 )
 
@@ -178,6 +179,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/rqt_sarus_test_plugin_node.cpp)
+add_executable(test_node src/rqt_sarus_test_plugin/test_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -193,6 +195,9 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(test_node
+ ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
