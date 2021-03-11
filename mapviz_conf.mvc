@@ -7,11 +7,11 @@ enable_antialiasing: true
 show_displays: true
 show_status_bar: true
 show_capture_tools: true
-window_width: 1227
+window_width: 1217
 window_height: 960
-view_scale: 129.1298
-offset_x: -8870.875
-offset_y: 19814.53
+view_scale: 1.771559
+offset_x: -347.5837
+offset_y: -336.2023
 use_latest_transforms: true
 background: "#a0a0a4"
 displays:
@@ -28,10 +28,10 @@ displays:
     name: new display
     config:
       visible: true
-      collapsed: true
+      collapsed: false
       frame: world
       polygon_topic: /mapviz/polygon
-      color: "#00ff00"
+      color: "#a40000"
   - type: mapviz_plugins/pose
     name: new display
     config:
@@ -51,4 +51,4 @@ displays:
       visible: true
       collapsed: false
       topic: /mapviz/path
-      color: "#00ff00"
+      color: "#a40000"
