@@ -17,8 +17,8 @@ void TestPlugin::initPlugin(qt_gui_cpp::PluginContext &context)
 {
     widget = new TestPluginWidget();
     context.addWidget(widget);
-    ros::NodeHandle& node = getNodeHandle();
-    widget->init_ROS_Node(node);
+
+    widget->init_ROS_Node();
 }
 
 void TestPlugin::shutdownPlugin()
