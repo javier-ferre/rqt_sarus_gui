@@ -160,7 +160,7 @@
   <widget class="QTextBrowser" name="speedZ">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>260</x>
      <y>160</y>
      <width>101</width>
      <height>31</height>
@@ -216,7 +216,7 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>275</x>
+     <x>265</x>
      <y>142</y>
      <width>55</width>
      <height>17</height>
@@ -230,7 +230,7 @@
    <property name="geometry">
     <rect>
      <x>41</x>
-     <y>211</y>
+     <y>221</y>
      <width>56</width>
      <height>17</height>
     </rect>
@@ -243,7 +243,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>210</y>
+     <y>220</y>
      <width>115</width>
      <height>29</height>
     </rect>
@@ -253,7 +253,7 @@
    <property name="geometry">
     <rect>
      <x>42</x>
-     <y>257</y>
+     <y>267</y>
      <width>91</width>
      <height>17</height>
     </rect>
@@ -266,7 +266,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>250</y>
+     <y>260</y>
      <width>110</width>
      <height>29</height>
     </rect>
@@ -279,7 +279,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>300</y>
+     <y>310</y>
      <width>53</width>
      <height>17</height>
     </rect>
@@ -292,7 +292,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>300</y>
+     <y>310</y>
      <width>95</width>
      <height>25</height>
     </rect>

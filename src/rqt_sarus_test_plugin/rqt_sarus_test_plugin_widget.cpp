@@ -69,7 +69,7 @@ void TestPluginWidget::init_ROS_Node()
     // SUBSCRIBERS
     speedx = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedx_callback, this);
     speedy = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedy_callback, this);
-    speedz = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedy_callback, this);
+    speedz = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedz_callback, this);
     pos_z = ros_node_handle.subscribe("/drone107/sensor_measurement/altitude", 1, &TestPluginWidget::ros_posz_callback, this);
 }
 
