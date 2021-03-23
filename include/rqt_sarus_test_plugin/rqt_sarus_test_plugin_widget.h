@@ -5,6 +5,7 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include "geometry_msgs/TwistStamped.h"
+#include "geometry_msgs/PointStamped.h"
 
 namespace Ui {
 class TestPluginWidget;
@@ -24,6 +25,10 @@ private slots:
     void on_pushButton_clicked();
     void Update_Display();
 
+    void on_addDrone_clicked();
+
+    void on_removeDrone_clicked();
+
 private:
     Ui::TestPluginWidget *ui;
 
@@ -36,15 +41,21 @@ private:
     //Subscribers
     ros::Subscriber speedx;
     ros::Subscriber speedy;
+    ros::Subscriber speedz;
+    ros::Subscriber pos_z;
 
     // Subscribers callbacks
     void ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx);
     void ros_speedy_callback(const geometry_msgs::TwistStamped::ConstPtr &vy);
+    void ros_speedz_callback(const geometry_msgs::TwistStamped::ConstPtr &vz);
+    void ros_posz_callback(const geometry_msgs::PointStamped::ConstPtr &z);
 
     // Variables
-    float dronSpeed_x;
-    float dronSpeed_y;
-    int num_Drones = 2;
+    QString droneSpeed_x;
+    QString droneSpeed_y;
+    QString droneSpeed_z;
+    QString dronePos_z;
+    int num_Drones = 0;
 
     QTimer *timer_1;
 };

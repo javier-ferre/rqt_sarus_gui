@@ -6,6 +6,8 @@
 #include <QTime>
 #include <QString>
 #include "geometry_msgs/TwistStamped.h"
+#include "geometry_msgs/PointStamped.h"
+
 
 TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QWidget(parent),
@@ -17,11 +19,6 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QObject::connect(timer_1, SIGNAL(timeout()), this, SLOT(Update_Display()));
     timer_1->start(500);
 
-    std::string drone;
-    for(int i=0; i<num_Drones; i++){
-        drone = std::to_string(i);
-        ui->drone_ID->addItem(drone.c_str());
-    }
 }
 
 TestPluginWidget::~TestPluginWidget()
@@ -33,26 +30,33 @@ TestPluginWidget::~TestPluginWidget()
 
 
 void TestPluginWidget::Update_Display() {
+    ui->n_drones->setText(QString::number(num_Drones));
+
     std::string speed;
 
-    QString currentDron;
-    currentDron.sprintf("%d", ui->drone_ID->currentIndex());
-    if(currentDron.toInt() == 1){
-        speed = std::to_string(dronSpeed_x);
-        ui->speedX->setText(speed.c_str());
-    }
-    else {
-        speed = std::to_string(dronSpeed_y);
-        ui->speedY->setText(speed.c_str());
-    }
+    int currentDron;
+    currentDron = ui->drone_ID->currentIndex();
+
+    ui->speedX->setText(droneSpeed_x);
+    ui->speedY->setText(droneSpeed_y);
+    ui->speedZ->setText(droneSpeed_z);
+    ui->altitude->setText(dronePos_z);
 }
 
 void TestPluginWidget::ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx){
-    this->dronSpeed_x = vx->twist.linear.x;
+    this->droneSpeed_x = QString::number(vx->twist.linear.x);
 }
 
 void TestPluginWidget::ros_speedy_callback(const geometry_msgs::TwistStamped::ConstPtr &vy){
-    this->dronSpeed_y = vy->twist.linear.y;
+    this->droneSpeed_y = QString::number(vy->twist.linear.y);
+}
+
+void TestPluginWidget::ros_speedz_callback(const geometry_msgs::TwistStamped::ConstPtr &vz){
+    this->droneSpeed_z = QString::number(vz->twist.linear.z);
+}
+
+void TestPluginWidget::ros_posz_callback(const geometry_msgs::PointStamped::ConstPtr &pz){
+    this->dronePos_z = QString::number((pz->point.z)*(-1));
 }
 
 void TestPluginWidget::init_ROS_Node()
@@ -65,6 +69,8 @@ void TestPluginWidget::init_ROS_Node()
     // SUBSCRIBERS
     speedx = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedx_callback, this);
     speedy = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedy_callback, this);
+    speedz = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedy_callback, this);
+    pos_z = ros_node_handle.subscribe("/drone107/sensor_measurement/altitude", 1, &TestPluginWidget::ros_posz_callback, this);
 }
 
 void TestPluginWidget::on_pushButton_clicked()
@@ -73,4 +79,18 @@ void TestPluginWidget::on_pushButton_clicked()
     std_msgs::String message;
     message.data = "Button clicked!";
     buttonPublisher.publish(message);
+}
+
+void TestPluginWidget::on_addDrone_clicked()
+{
+    num_Drones++;
+    ui->drone_ID->addItem(QString::number(num_Drones));
+}
+
+void TestPluginWidget::on_removeDrone_clicked()
+{
+    if (num_Drones > 0){
+        num_Drones--;
+        ui->drone_ID->removeItem(num_Drones);
+    }
 }
