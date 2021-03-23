@@ -30,7 +30,6 @@ TestPluginWidget::~TestPluginWidget()
 
 
 void TestPluginWidget::Update_Display() {
-    ui->n_drones->setText(QString::number(num_Drones));
 
     std::string speed;
 
@@ -85,6 +84,7 @@ void TestPluginWidget::on_addDrone_clicked()
 {
     num_Drones++;
     ui->drone_ID->addItem(QString::number(num_Drones));
+    ui->n_drones->setText(QString::number(num_Drones));
 }
 
 void TestPluginWidget::on_removeDrone_clicked()
@@ -93,4 +93,5 @@ void TestPluginWidget::on_removeDrone_clicked()
         num_Drones--;
         ui->drone_ID->removeItem(num_Drones);
     }
+    ui->n_drones->setText(QString::number(num_Drones));
 }
