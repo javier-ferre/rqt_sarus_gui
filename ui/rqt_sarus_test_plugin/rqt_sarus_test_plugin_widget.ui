@@ -262,19 +262,6 @@
     <string>Mission State</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="state">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>260</y>
-     <width>110</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(115, 210, 22);</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
@@ -299,6 +286,84 @@
    </property>
    <property name="value">
     <number>24</number>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="led">
+   <property name="geometry">
+    <rect>
+     <x>163</x>
+     <y>260</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="led_2">
+   <property name="geometry">
+    <rect>
+     <x>199</x>
+     <y>260</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="led_3">
+   <property name="geometry">
+    <rect>
+     <x>235</x>
+     <y>260</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="led_4">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>260</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="led_5">
+   <property name="geometry">
+    <rect>
+     <x>306</x>
+     <y>260</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="led_6">
+   <property name="geometry">
+    <rect>
+     <x>342</x>
+     <y>260</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

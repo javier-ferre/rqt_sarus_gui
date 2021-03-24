@@ -8,6 +8,9 @@
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
 
+// Leds style
+QString LedOn("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: lime; border: 2px solid gray;}");
+QString LedOff("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: black; border: 2px solid gray;}");
 
 TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +21,13 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     timer_1 = new QTimer(this);
     QObject::connect(timer_1, SIGNAL(timeout()), this, SLOT(Update_Display()));
     timer_1->start(500);
+
+    ui->led->setStyleSheet(LedOn);
+    ui->led_2->setStyleSheet(LedOff);
+    ui->led_3->setStyleSheet(LedOn);
+    ui->led_4->setStyleSheet(LedOff);
+    ui->led_5->setStyleSheet(LedOn);
+    ui->led_6->setStyleSheet(LedOff);
 
 }
 
