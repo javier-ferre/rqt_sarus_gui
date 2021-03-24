@@ -9,8 +9,8 @@
 #include "geometry_msgs/PointStamped.h"
 
 // Leds style
-QString LedOn("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: lime; border: 2px solid gray;}");
-QString LedOff("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: black; border: 2px solid gray;}");
+QString LedOn("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: lime; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: lime; border: 2px solid gray;}");
+QString LedOff("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: black; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: black; border: 2px solid gray;}");
 
 TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QWidget(parent),
