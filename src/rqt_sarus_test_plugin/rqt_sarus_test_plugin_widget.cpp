@@ -22,12 +22,13 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QObject::connect(timer_1, SIGNAL(timeout()), this, SLOT(Update_Display()));
     timer_1->start(500);
 
+    timer_1s = new QTimer(this);
+    QObject::connect(timer_1s, SIGNAL(timeout()), this, SLOT(Update_Time()));
+    timer_1s->start(1000);
+
     ui->led->setStyleSheet(LedOn);
     ui->led_2->setStyleSheet(LedOff);
     ui->led_3->setStyleSheet(LedOn);
-    ui->led_4->setStyleSheet(LedOff);
-    ui->led_5->setStyleSheet(LedOn);
-    ui->led_6->setStyleSheet(LedOff);
 
 }
 
@@ -50,6 +51,10 @@ void TestPluginWidget::Update_Display() {
     ui->speedY->setText(droneSpeed_y);
     ui->speedZ->setText(droneSpeed_z);
     ui->altitude->setText(dronePos_z);
+}
+
+void TestPluginWidget::Update_Time() {
+    ui->current_time->setText(QTime::currentTime().toString("hh:mm:ss"));
 }
 
 void TestPluginWidget::ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx){

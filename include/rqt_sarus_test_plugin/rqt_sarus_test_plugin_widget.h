@@ -24,6 +24,7 @@ public:
 private slots:
     void on_pushButton_clicked();
     void Update_Display();
+    void Update_Time();
 
     void on_addDrone_clicked();
 
@@ -58,6 +59,7 @@ private:
     int num_Drones = 0;
 
     QTimer *timer_1;
+    QTimer *timer_1s;
 };
 
 #endif // RQT_SARUS_TEST_PLUGIN_WIDGET
