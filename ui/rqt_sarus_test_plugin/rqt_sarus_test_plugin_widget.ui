@@ -52,7 +52,7 @@
     <string>Drone ID</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="warnings">
+  <widget class="QTextBrowser" name="terminal">
    <property name="geometry">
     <rect>
      <x>420</x>

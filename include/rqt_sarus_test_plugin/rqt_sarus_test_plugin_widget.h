@@ -60,6 +60,9 @@ private:
 
     QTimer *timer_1;
     QTimer *timer_1s;
+
+    QString terminal_msg;
+    QString terminal_time;
 };
 
 #endif // RQT_SARUS_TEST_PLUGIN_WIDGET

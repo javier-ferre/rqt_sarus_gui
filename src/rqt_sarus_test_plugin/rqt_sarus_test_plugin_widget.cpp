@@ -30,6 +30,9 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     ui->led_2->setStyleSheet(LedOff);
     ui->led_3->setStyleSheet(LedOn);
 
+    terminal_time = QString("<span style=\" color:red;\">%1</span>").arg(QTime::currentTime().toString("hh:mm:ss"));
+    terminal_msg = QString("<span style=\" color:black;\">%1</span>").arg(" MISSION START\n");
+    ui->terminal->setText(terminal_time+terminal_msg);
 }
 
 TestPluginWidget::~TestPluginWidget()
