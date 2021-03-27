@@ -30,6 +30,8 @@ private slots:
 
     void on_removeDrone_clicked();
 
+    void on_drone_ID_activated(int index);
+
 private:
     Ui::TestPluginWidget *ui;
 

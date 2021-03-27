@@ -8,6 +8,8 @@
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
 
+#define FIRST_ID 107
+
 // Leds style
 QString LedOn("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: lime; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: lime; border: 2px solid gray;}");
 QString LedOff("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: black; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: black; border: 2px solid gray;}");
@@ -84,10 +86,10 @@ void TestPluginWidget::init_ROS_Node()
     buttonPublisher = ros_node_handle.advertise<std_msgs::String>("my_data",1);
 
     // SUBSCRIBERS
-    speedx = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedx_callback, this);
-    speedy = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedy_callback, this);
-    speedz = ros_node_handle.subscribe("/drone107/motion_reference/speed", 1, &TestPluginWidget::ros_speedz_callback, this);
-    pos_z = ros_node_handle.subscribe("/drone107/sensor_measurement/altitude", 1, &TestPluginWidget::ros_posz_callback, this);
+    //speedx = ros_node_handle.subscribe(Try, 1, &TestPluginWidget::ros_speedx_callback, this);
+    //speedy = ros_node_handle.subscribe(Try, 1, &TestPluginWidget::ros_speedy_callback, this);
+    //speedz = ros_node_handle.subscribe(Try, 1, &TestPluginWidget::ros_speedz_callback, this);
+    //pos_z = ros_node_handle.subscribe("/drone107/sensor_measurement/altitude", 1, &TestPluginWidget::ros_posz_callback, this);
 }
 
 void TestPluginWidget::on_pushButton_clicked()
@@ -112,4 +114,18 @@ void TestPluginWidget::on_removeDrone_clicked()
         ui->drone_ID->removeItem(num_Drones);
     }
     ui->n_drones->setText(QString::number(num_Drones));
+}
+
+
+
+
+void TestPluginWidget::on_drone_ID_activated(int index)
+{
+    std::string speed("/drone" + (std::to_string(FIRST_ID+index) + "/motion_reference/speed"));
+    std::string altitude("/drone" + (std::to_string(FIRST_ID+index) + "/sensor_measurement/altitude"));
+
+    speedx = ros_node_handle.subscribe(speed, 1, &TestPluginWidget::ros_speedx_callback, this);
+    speedy = ros_node_handle.subscribe(speed, 1, &TestPluginWidget::ros_speedy_callback, this);
+    speedz = ros_node_handle.subscribe(speed, 1, &TestPluginWidget::ros_speedz_callback, this);
+    pos_z = ros_node_handle.subscribe(altitude, 1, &TestPluginWidget::ros_posz_callback, this);
 }
