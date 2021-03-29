@@ -30,9 +30,9 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QObject::connect(timer_1s, SIGNAL(timeout()), this, SLOT(Update_Time()));
     timer_1s->start(1000);
 
-    ui->led->setStyleSheet(LedOn);
-    ui->led_2->setStyleSheet(LedOff);
-    ui->led_3->setStyleSheet(LedOn);
+    ui->led_Coincidence->setStyleSheet(LedOff);
+    ui->led_Battery->setStyleSheet(LedOff);
+    ui->led_Altitude->setStyleSheet(LedOff);
 
     terminal_time = QString("<span style=\" color:red;\">%1</span>").arg(QTime::currentTime().toString("hh:mm:ss"));
     terminal_msg = QString("<span style=\" color:black;\">%1</span>").arg(" MISSION START\n");
@@ -59,7 +59,18 @@ void TestPluginWidget::Update_Display() {
     ui->speedY->setText(droneSpeed_y);
     ui->speedZ->setText(droneSpeed_z);
     ui->altitude->setText(dronePos_z);
-
+    if(2 > droneAltitude)
+    {
+        ui->led_Altitude->setStyleSheet(LedOn);
+    } else {
+        ui->led_Altitude->setStyleSheet(LedOff);
+    }
+    if(20 > droneBat_level)
+    {
+        ui->led_Battery->setStyleSheet(LedOn);
+    } else {
+        ui->led_Battery->setStyleSheet(LedOff);
+    }
     on_batteryLevelChanged(droneBat_level);
 
 }
@@ -82,6 +93,7 @@ void TestPluginWidget::ros_speedz_callback(const geometry_msgs::TwistStamped::Co
 
 void TestPluginWidget::ros_posz_callback(const geometry_msgs::PointStamped::ConstPtr &pz){
     this->dronePos_z = QString::number((pz->point.z)*(-1));
+    this->droneAltitude = (pz->point.z)*(-1);
 }
 
 void TestPluginWidget::ros_batlevel_callback(const sensor_msgs::BatteryState::ConstPtr &msg){
@@ -145,6 +157,7 @@ void TestPluginWidget::on_drone_ID_activated(int index)
 void TestPluginWidget::on_batteryLevelChanged(int nValue)
 {
     ui->BatteryProgressBar->setValue(nValue);
+    ui->BatteryProgressBar->setAlignment(Qt::AlignCenter);
     QString myStyleSheet = " QProgressBar::chunk {"
     " background-color: ";
 
@@ -161,7 +174,7 @@ void TestPluginWidget::on_batteryLevelChanged(int nValue)
         myStyleSheet.append("green;");
     }
     myStyleSheet.append("     width: 10px;"\
-                    "     margin: 0.5px;"\
+                    "     margin: 0px;"\
                     " }");
     ui->BatteryProgressBar->setStyleSheet(myStyleSheet);
 

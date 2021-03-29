@@ -180,7 +180,7 @@
     <string>Z</string>
    </property>
   </widget>
-  <widget class="QLabel" name="ALTI">
+  <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
      <x>211</x>
@@ -216,7 +216,7 @@
     <string>Battery</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="led">
+  <widget class="QRadioButton" name="led_Coincidence">
    <property name="geometry">
     <rect>
      <x>441</x>
@@ -229,7 +229,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QRadioButton" name="led_2">
+  <widget class="QRadioButton" name="led_Battery">
    <property name="geometry">
     <rect>
      <x>441</x>
@@ -242,7 +242,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QRadioButton" name="led_3">
+  <widget class="QRadioButton" name="led_Altitude">
    <property name="geometry">
     <rect>
      <x>441</x>

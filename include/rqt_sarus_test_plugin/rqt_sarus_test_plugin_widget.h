@@ -63,6 +63,7 @@ private:
     QString droneSpeed_y;
     QString droneSpeed_z;
     QString dronePos_z;
+    float droneAltitude;
     int droneBat_level;
     int num_Drones = 0;
 
