@@ -6,6 +6,7 @@
 #include <std_msgs/String.h>
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
+#include "sensor_msgs/BatteryState.h"
 
 namespace Ui {
 class TestPluginWidget;
@@ -32,6 +33,8 @@ private slots:
 
     void on_drone_ID_activated(int index);
 
+    void on_batteryLevelChanged(int nValue);
+
 private:
     Ui::TestPluginWidget *ui;
 
@@ -46,18 +49,21 @@ private:
     ros::Subscriber speedy;
     ros::Subscriber speedz;
     ros::Subscriber pos_z;
+    ros::Subscriber battery_level;
 
     // Subscribers callbacks
     void ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx);
     void ros_speedy_callback(const geometry_msgs::TwistStamped::ConstPtr &vy);
     void ros_speedz_callback(const geometry_msgs::TwistStamped::ConstPtr &vz);
     void ros_posz_callback(const geometry_msgs::PointStamped::ConstPtr &z);
+    void ros_batlevel_callback(const sensor_msgs::BatteryState::ConstPtr &percentage);
 
     // Variables
     QString droneSpeed_x;
     QString droneSpeed_y;
     QString droneSpeed_z;
     QString dronePos_z;
+    int droneBat_level;
     int num_Drones = 0;
 
     QTimer *timer_1;

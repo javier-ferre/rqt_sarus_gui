@@ -7,8 +7,10 @@
 #include <QString>
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
+#include "sensor_msgs/BatteryState.h"
 
-#define FIRST_ID 107
+
+#define FIRST_ID 111
 
 // Leds style
 QString LedOn("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: lime; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: lime; border: 2px solid gray;}");
@@ -35,6 +37,7 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     terminal_time = QString("<span style=\" color:red;\">%1</span>").arg(QTime::currentTime().toString("hh:mm:ss"));
     terminal_msg = QString("<span style=\" color:black;\">%1</span>").arg(" MISSION START\n");
     ui->terminal->setText(terminal_time+terminal_msg);
+
 }
 
 TestPluginWidget::~TestPluginWidget()
@@ -56,6 +59,9 @@ void TestPluginWidget::Update_Display() {
     ui->speedY->setText(droneSpeed_y);
     ui->speedZ->setText(droneSpeed_z);
     ui->altitude->setText(dronePos_z);
+
+    on_batteryLevelChanged(droneBat_level);
+
 }
 
 void TestPluginWidget::Update_Time() {
@@ -76,6 +82,10 @@ void TestPluginWidget::ros_speedz_callback(const geometry_msgs::TwistStamped::Co
 
 void TestPluginWidget::ros_posz_callback(const geometry_msgs::PointStamped::ConstPtr &pz){
     this->dronePos_z = QString::number((pz->point.z)*(-1));
+}
+
+void TestPluginWidget::ros_batlevel_callback(const sensor_msgs::BatteryState::ConstPtr &msg){
+    this->droneBat_level = (int)(msg->percentage)*100;
 }
 
 void TestPluginWidget::init_ROS_Node()
@@ -123,9 +133,36 @@ void TestPluginWidget::on_drone_ID_activated(int index)
 {
     std::string speed("/drone" + (std::to_string(FIRST_ID+index) + "/motion_reference/speed"));
     std::string altitude("/drone" + (std::to_string(FIRST_ID+index) + "/sensor_measurement/altitude"));
+    std::string battery("/drone" + (std::to_string(FIRST_ID+index) + "/sensor_measurement/battery_state"));
 
     speedx = ros_node_handle.subscribe(speed, 1, &TestPluginWidget::ros_speedx_callback, this);
     speedy = ros_node_handle.subscribe(speed, 1, &TestPluginWidget::ros_speedy_callback, this);
     speedz = ros_node_handle.subscribe(speed, 1, &TestPluginWidget::ros_speedz_callback, this);
     pos_z = ros_node_handle.subscribe(altitude, 1, &TestPluginWidget::ros_posz_callback, this);
+    battery_level = ros_node_handle.subscribe(battery, 1, &TestPluginWidget::ros_batlevel_callback, this);
+}
+
+void TestPluginWidget::on_batteryLevelChanged(int nValue)
+{
+    ui->BatteryProgressBar->setValue(nValue);
+    QString myStyleSheet = " QProgressBar::chunk {"
+    " background-color: ";
+
+    if(20 > nValue)
+    {
+        myStyleSheet.append("red;");
+    }
+    else if(60 > nValue && 20 <= nValue)
+    {
+        myStyleSheet.append("yellow;");
+    }
+    else
+    {
+        myStyleSheet.append("green;");
+    }
+    myStyleSheet.append("     width: 10px;"\
+                    "     margin: 0.5px;"\
+                    " }");
+    ui->BatteryProgressBar->setStyleSheet(myStyleSheet);
+
 }
