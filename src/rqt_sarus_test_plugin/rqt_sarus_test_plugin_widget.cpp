@@ -8,6 +8,7 @@
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
 #include "sensor_msgs/BatteryState.h"
+#include "aerostack_msgs/ActivateBehavior.h"
 
 
 #define FIRST_ID 111
@@ -112,6 +113,9 @@ void TestPluginWidget::init_ROS_Node()
     //speedy = ros_node_handle.subscribe(Try, 1, &TestPluginWidget::ros_speedy_callback, this);
     //speedz = ros_node_handle.subscribe(Try, 1, &TestPluginWidget::ros_speedz_callback, this);
     //pos_z = ros_node_handle.subscribe("/drone107/sensor_measurement/altitude", 1, &TestPluginWidget::ros_posz_callback, this);
+
+    // CLIENTS
+    take_off_client = ros_node_handle.serviceClient<aerostack_msgs::ActivateBehavior>("/drone111/basic_quadrotor_behaviors/behavior_take_off/activate_behavior");
 }
 
 void TestPluginWidget::on_pushButton_clicked()
@@ -120,6 +124,17 @@ void TestPluginWidget::on_pushButton_clicked()
     std_msgs::String message;
     message.data = "Button clicked!";
     buttonPublisher.publish(message);
+
+    aerostack_msgs::ActivateBehavior srv;
+    srv.request.arguments = "";
+    srv.request.timeout = 1000;
+    if(take_off_client.call(srv))
+    {
+        ROS_INFO("Service call succesfull");
+        if(srv.response.ack) ROS_INFO("Acknowledged!");
+        else ROS_INFO("Not acknowledged");
+    }
+    else ROS_ERROR("Service call failed");
 }
 
 void TestPluginWidget::on_addDrone_clicked()

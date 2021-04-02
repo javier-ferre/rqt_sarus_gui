@@ -7,6 +7,7 @@
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
 #include "sensor_msgs/BatteryState.h"
+#include "aerostack_msgs/ActivateBehavior.h"
 
 namespace Ui {
 class TestPluginWidget;
@@ -50,6 +51,9 @@ private:
     ros::Subscriber speedz;
     ros::Subscriber pos_z;
     ros::Subscriber battery_level;
+
+    // Clients
+    ros::ServiceClient take_off_client;
 
     // Subscribers callbacks
     void ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx);
