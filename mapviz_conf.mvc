@@ -7,8 +7,8 @@ enable_antialiasing: true
 show_displays: true
 show_status_bar: true
 show_capture_tools: true
-window_width: 1217
-window_height: 960
+window_width: 976
+window_height: 543
 view_scale: 1.771559
 offset_x: -347.5837
 offset_y: -336.2023
@@ -28,20 +28,20 @@ displays:
     name: new display
     config:
       visible: true
-      collapsed: false
+      collapsed: true
       frame: world
       polygon_topic: /mapviz/polygon
       color: "#a40000"
   - type: mapviz_plugins/pose
     name: new display
     config:
-      visible: false
+      visible: true
       collapsed: true
       topic: /drone111/ground_truth/pose
       color: "#a40000"
       draw_style: arrows
-      position_tolerance: 0
-      buffer_size: 1
+      position_tolerance: 1
+      buffer_size: 5
       show_laps: false
       static_arrow_sizes: true
       arrow_size: 28
@@ -49,6 +49,6 @@ displays:
     name: new display
     config:
       visible: true
-      collapsed: false
+      collapsed: true
       topic: /mapviz/path
       color: "#a40000"

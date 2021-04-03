@@ -24,7 +24,7 @@ public:
     void init_ROS_Node();
 
 private slots:
-    void on_pushButton_clicked();
+
     void Update_Display();
     void Update_Time();
 
@@ -36,6 +36,10 @@ private slots:
 
     void on_batteryLevelChanged(int nValue);
 
+    void on_land_clicked();
+
+    void on_button_takeoff_clicked();
+
 private:
     Ui::TestPluginWidget *ui;
 
@@ -44,6 +48,8 @@ private:
 
     //Publishers
     ros::Publisher buttonPublisher;
+    ros::Publisher landPublisher;
+    ros::Publisher emergencyPublisher;
 
     //Subscribers
     ros::Subscriber speedx;
@@ -54,6 +60,8 @@ private:
 
     // Clients
     ros::ServiceClient take_off_client;
+    ros::ServiceClient land_client;
+    ros::ServiceClient emergency_stop_client;
 
     // Subscribers callbacks
     void ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx);

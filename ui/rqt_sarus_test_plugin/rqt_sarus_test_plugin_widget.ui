@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
+    <width>335</width>
     <height>777</height>
    </rect>
   </property>
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="button_takeoff">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>320</y>
+     <x>220</x>
+     <y>250</y>
      <width>89</width>
      <height>25</height>
     </rect>
@@ -367,6 +367,32 @@
    </property>
    <property name="text">
     <string>System Warnings</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="land">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>280</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Land</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="emergency_stop">
+   <property name="geometry">
+    <rect>
+     <x>188</x>
+     <y>320</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Emergency stop</string>
    </property>
   </widget>
  </widget>

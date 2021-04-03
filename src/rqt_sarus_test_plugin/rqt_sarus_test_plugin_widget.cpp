@@ -106,7 +106,9 @@ void TestPluginWidget::init_ROS_Node()
     // Write initialization code here
 
     // PUBLISHERS
-    buttonPublisher = ros_node_handle.advertise<std_msgs::String>("my_data",1);
+     buttonPublisher = ros_node_handle.advertise<std_msgs::String>("my_data",1);
+     landPublisher = ros_node_handle.advertise<std_msgs::String>("my_data",1);
+     emergencyPublisher = ros_node_handle.advertise<std_msgs::String>("my_data",1);
 
     // SUBSCRIBERS
     //speedx = ros_node_handle.subscribe(Try, 1, &TestPluginWidget::ros_speedx_callback, this);
@@ -116,26 +118,12 @@ void TestPluginWidget::init_ROS_Node()
 
     // CLIENTS
     take_off_client = ros_node_handle.serviceClient<aerostack_msgs::ActivateBehavior>("/drone111/basic_quadrotor_behaviors/behavior_take_off/activate_behavior");
+    land_client = ros_node_handle.serviceClient<aerostack_msgs::ActivateBehavior>("/drone111/basic_quadrotor_behaviors/behavior_land/activate_behavior");
+
 }
 
-void TestPluginWidget::on_pushButton_clicked()
-{
-    // Button clicked callback
-    std_msgs::String message;
-    message.data = "Button clicked!";
-    buttonPublisher.publish(message);
 
-    aerostack_msgs::ActivateBehavior srv;
-    srv.request.arguments = "";
-    srv.request.timeout = 1000;
-    if(take_off_client.call(srv))
-    {
-        ROS_INFO("Service call succesfull");
-        if(srv.response.ack) ROS_INFO("Acknowledged!");
-        else ROS_INFO("Not acknowledged");
-    }
-    else ROS_ERROR("Service call failed");
-}
+
 
 void TestPluginWidget::on_addDrone_clicked()
 {
@@ -193,4 +181,42 @@ void TestPluginWidget::on_batteryLevelChanged(int nValue)
                     " }");
     ui->BatteryProgressBar->setStyleSheet(myStyleSheet);
 
+}
+
+void TestPluginWidget::on_land_clicked()
+{
+    // Button clicked callback
+        std_msgs::String message;
+        message.data = "Land clicked!";
+        landPublisher.publish(message);
+
+        aerostack_msgs::ActivateBehavior srv;
+        srv.request.arguments = "";
+        srv.request.timeout = 1000;
+        if(land_client.call(srv))
+        {
+            ROS_INFO("Service call succesfull");
+            if(srv.response.ack) ROS_INFO("Acknowledged!");
+            else ROS_INFO("Not acknowledged");
+        }
+        else ROS_ERROR("Service call failed");
+}
+
+void TestPluginWidget::on_button_takeoff_clicked()
+{
+    // Button clicked callback
+    std_msgs::String message;
+    message.data = "Button clicked!";
+    buttonPublisher.publish(message);
+
+    aerostack_msgs::ActivateBehavior srv;
+    srv.request.arguments = "";
+    srv.request.timeout = 1000;
+    if(take_off_client.call(srv))
+    {
+        ROS_INFO("Service call succesfull");
+        if(srv.response.ack) ROS_INFO("Acknowledged!");
+        else ROS_INFO("Not acknowledged");
+    }
+    else ROS_ERROR("Service call failed");
 }
