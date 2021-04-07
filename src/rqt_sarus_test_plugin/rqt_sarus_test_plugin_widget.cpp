@@ -14,8 +14,11 @@
 #define FIRST_ID 111
 
 // Leds style
-QString LedOn("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: lime; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: lime; border: 2px solid gray;}");
-QString LedOff("QRadioButton::indicator {width: 15px; height: 15px; border-radius: 7px;} QRadioButton::indicator:unchecked { background-color: black; border: 2px solid gray;} QRadioButton::indicator:checked { background-color: black; border: 2px solid gray;}");
+QString LedOff("border: 1px solid grey; border-radius:8px; background-color: qlineargradient(spread:pad, x1:0.145, y1:0.16, x2:1, y2:1, stop:0 rgb(46, 52, 54), stop:1 rgb(0, 0, 0));");
+QString LedOn_green("border: 1px solid grey; border-radius:8px; background-color: qlineargradient(spread:pad, x1:0.145, y1:0.16, x2:1, y2:1, stop:0 rgba(20, 252, 7, 255), stop:1 rgba(25, 134, 5, 255));");
+QString LedOn_red("border: 1px solid grey; border-radius:8px; background-color: qlineargradient(spread:pad, x1:0.145, y1:0.16, x2:0.92, y2:0.988636, stop:0 rgba(255, 12, 12, 255), stop:0.869347 rgba(103, 0, 0, 255));");
+QString LedOn_orange("border: 1px solid grey; border-radius:8px; background-color: qlineargradient(spread:pad, x1:0.232, y1:0.272, x2:0.98, y2:0.959773, stop:0 rgba(255, 113, 4, 255), stop:1 rgba(91, 41, 7, 255));");
+QString LedOn_blue("border: 1px solid grey; border-radius:8px; background-color: qlineargradient(spread:pad, x1:0.04, y1:0.0565909, x2:0.799, y2:0.795, stop:0 rgba(203, 220, 255, 255), stop:0.41206 rgba(0, 115, 255, 255), stop:1 rgba(0, 49, 109, 255));");
 
 TestPluginWidget::TestPluginWidget(QWidget *parent) :
     QWidget(parent),
@@ -30,10 +33,6 @@ TestPluginWidget::TestPluginWidget(QWidget *parent) :
     timer_1s = new QTimer(this);
     QObject::connect(timer_1s, SIGNAL(timeout()), this, SLOT(Update_Time()));
     timer_1s->start(1000);
-
-    ui->led_Coincidence->setStyleSheet(LedOff);
-    ui->led_Battery->setStyleSheet(LedOff);
-    ui->led_Altitude->setStyleSheet(LedOff);
 
     terminal_time = QString("<span style=\" color:red;\">%1</span>").arg(QTime::currentTime().toString("hh:mm:ss"));
     terminal_msg = QString("<span style=\" color:black;\">%1</span>").arg(" MISSION START\n");
@@ -62,13 +61,13 @@ void TestPluginWidget::Update_Display() {
     ui->altitude->setText(dronePos_z);
     if(2 > droneAltitude)
     {
-        ui->led_Altitude->setStyleSheet(LedOn);
+        ui->led_Altitude->setStyleSheet(LedOn_green);
     } else {
         ui->led_Altitude->setStyleSheet(LedOff);
     }
     if(20 > droneBat_level)
     {
-        ui->led_Battery->setStyleSheet(LedOn);
+        ui->led_Battery->setStyleSheet(LedOn_green);
     } else {
         ui->led_Battery->setStyleSheet(LedOff);
     }
@@ -220,3 +219,5 @@ void TestPluginWidget::on_button_takeoff_clicked()
     }
     else ROS_ERROR("Service call failed");
 }
+
+
