@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <vector>
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PointStamped.h"
 #include "sensor_msgs/BatteryState.h"
@@ -59,9 +60,10 @@ private:
     ros::Subscriber battery_level;
 
     // Clients
-    ros::ServiceClient take_off_client;
     ros::ServiceClient land_client;
     ros::ServiceClient emergency_stop_client;
+    ros::ServiceClient take_off_client;
+    std::vector<ros::ServiceClient> take_off_all;
 
     // Subscribers callbacks
     void ros_speedx_callback(const geometry_msgs::TwistStamped::ConstPtr &vx);
